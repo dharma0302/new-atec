@@ -4,13 +4,19 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <script>
-    /* GitHub Pages에서 /new-atec (슬래시 없음) 접속 시 상대경로 깨짐 방지 */
+    /* GitHub project Pages: always resolve assets under /new-atec/ */
     (function () {
-      var path = location.pathname || "/";
-      if (/\.html?$/i.test(path)) path = path.replace(/[^\/]*$/, "");
-      else if (!/\/$/.test(path)) path += "/";
       var base = document.createElement("base");
-      base.href = location.origin + path;
+      if (/github\.io$/i.test(location.hostname)) {
+        base.href = location.origin + "/new-atec/";
+      } else {
+        var path = location.pathname || "/";
+        if (/\.html?$/i.test(path)) path = path.replace(/[^\/]*$/, "");
+        else if (!/\/$/.test(path)) path += "/";
+        base.href = location.protocol === "file:"
+          ? path
+          : location.origin + path;
+      }
       document.head.insertBefore(base, document.head.firstChild);
     })();
   </script>
@@ -683,6 +689,7 @@
 
     .media-slot--product {
       padding: 20px 24px 28px;
+      background: #111 !important;
     }
 
     .media-slot--product img {
@@ -690,7 +697,7 @@
       height: auto;
       max-height: 240px;
       object-fit: contain;
-      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.1));
+      filter: drop-shadow(0 18px 28px rgba(0, 0, 0, 0.35));
       transition: transform 0.35s ease;
     }
 
@@ -722,10 +729,6 @@
     /* 원본 일러스트 썸네일 → 밝은 회색 톤 */
     .tone-cool {
       filter: grayscale(0.45) brightness(1.05);
-    }
-
-    .media-slot--product {
-      background: #111 !important;
     }
 
     /* ——— Story ——— */
