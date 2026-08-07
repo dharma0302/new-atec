@@ -3,6 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <script>
+    /* GitHub Pages에서 /new-atec (슬래시 없음) 접속 시 상대경로 깨짐 방지 */
+    (function () {
+      var path = location.pathname || "/";
+      if (/\.html?$/i.test(path)) path = path.replace(/[^\/]*$/, "");
+      else if (!/\/$/.test(path)) path += "/";
+      var base = document.createElement("base");
+      base.href = location.origin + path;
+      document.head.insertBefore(base, document.head.firstChild);
+    })();
+  </script>
   <title>ATEC — 자동화 플랫폼</title>
   <meta name="description" content="에이텍은 금융·유통·글로벌 현장에 맞춘 자동화 플랫폼으로, 더 편리한 경험과 운영 효율을 만듭니다." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -257,7 +268,7 @@
     .hero__media {
       position: absolute;
       inset: 0;
-      z-index: -1;
+      z-index: 0;
       overflow: hidden;
       background: #e8e8ed;
     }
@@ -266,7 +277,7 @@
       position: absolute;
       inset: -6%;
       background: url("hero-main.jpg") center / cover no-repeat;
-      filter: grayscale(0.25) brightness(1.08) contrast(0.98);
+      filter: grayscale(0.08) brightness(1.02);
       animation: kenburns 16s ease-in-out infinite alternate;
       will-change: transform;
     }
@@ -278,13 +289,15 @@
       z-index: 1;
       background: linear-gradient(
         105deg,
-        rgba(245, 245, 247, 0.94) 0%,
-        rgba(232, 232, 237, 0.72) 38%,
-        rgba(232, 232, 237, 0.28) 100%
+        rgba(245, 245, 247, 0.78) 0%,
+        rgba(245, 245, 247, 0.35) 42%,
+        rgba(245, 245, 247, 0.12) 100%
       );
     }
 
     .hero__content {
+      position: relative;
+      z-index: 2;
       width: min(100% - 40px, var(--max));
       margin: 0 auto;
       padding: 72px 0 88px;
@@ -446,9 +459,9 @@
       background-repeat: no-repeat;
       transform: scale(1.02);
       transition: transform 0.35s ease;
-      /* 원본 붉은 배경 → 밝은 회색 톤 */
-      filter: grayscale(0.9) brightness(1.18) contrast(0.96);
-      opacity: 0.55;
+      /* 원본 붉은 배경 → 밝은 회색 톤 (이미지는 보이게) */
+      filter: grayscale(0.55) brightness(1.08) contrast(1);
+      opacity: 0.85;
     }
 
     .domain::after {
@@ -458,9 +471,9 @@
       z-index: -1;
       background: linear-gradient(
         180deg,
-        rgba(245, 245, 247, 0.88) 0%,
-        rgba(232, 232, 237, 0.55) 45%,
-        rgba(228, 228, 234, 0.72) 100%
+        rgba(245, 245, 247, 0.55) 0%,
+        rgba(245, 245, 247, 0.2) 40%,
+        rgba(232, 232, 237, 0.55) 100%
       );
     }
 
@@ -579,8 +592,8 @@
       inset: 0;
       z-index: 0;
       background: url("bg-service.jpg") center bottom / cover no-repeat;
-      filter: grayscale(0.9) brightness(1.18) contrast(0.96);
-      opacity: 0.5;
+      filter: grayscale(0.55) brightness(1.08);
+      opacity: 0.85;
     }
 
     .tile--photo::after {
@@ -590,9 +603,9 @@
       z-index: 0;
       background: linear-gradient(
         180deg,
-        rgba(245, 245, 247, 0.9) 0%,
-        rgba(232, 232, 237, 0.55) 50%,
-        rgba(228, 228, 234, 0.78) 100%
+        rgba(245, 245, 247, 0.6) 0%,
+        rgba(245, 245, 247, 0.2) 45%,
+        rgba(232, 232, 237, 0.6) 100%
       );
     }
 
@@ -694,21 +707,25 @@
 
     .media-slot--d {
       background:
-        linear-gradient(180deg, rgba(245, 245, 247, 0.82) 0%, rgba(232, 232, 237, 0.65) 100%),
+        linear-gradient(180deg, rgba(245, 245, 247, 0.35) 0%, rgba(232, 232, 237, 0.45) 100%),
         url("bg-esl.jpg") center bottom / cover no-repeat;
-      filter: grayscale(0.88) brightness(1.15);
+      filter: grayscale(0.5) brightness(1.05);
     }
 
     .media-slot--f {
       background:
-        linear-gradient(180deg, rgba(245, 245, 247, 0.82) 0%, rgba(232, 232, 237, 0.65) 100%),
+        linear-gradient(180deg, rgba(245, 245, 247, 0.35) 0%, rgba(232, 232, 237, 0.45) 100%),
         url("bg-service.jpg") center bottom / cover no-repeat;
-      filter: grayscale(0.88) brightness(1.15);
+      filter: grayscale(0.5) brightness(1.05);
     }
 
     /* 원본 일러스트 썸네일 → 밝은 회색 톤 */
     .tone-cool {
-      filter: grayscale(0.85) brightness(1.12);
+      filter: grayscale(0.45) brightness(1.05);
+    }
+
+    .media-slot--product {
+      background: #111 !important;
     }
 
     /* ——— Story ——— */
